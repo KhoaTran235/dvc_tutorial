@@ -1,0 +1,46 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python src/split.py
+    deps:
+    - path: data/diamonds.csv
+      hash: md5
+      md5: d25dba43d0c7286e246a5e05e8e13605
+      size: 2571905
+    - path: src/split.py
+      hash: md5
+      md5: 7489dd809849a45397b71fb5b4f3f59f
+      size: 3042
+    outs:
+    - path: data/test.csv
+      hash: md5
+      md5: 448525379455698510d5576264e58c53
+      size: 1464343
+    - path: data/train.csv
+      hash: md5
+      md5: 6d941dcafb42c86214ac270d238972f6
+      size: 5858539
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/test.csv
+      hash: md5
+      md5: 448525379455698510d5576264e58c53
+      size: 1464343
+    - path: data/train.csv
+      hash: md5
+      md5: 6d941dcafb42c86214ac270d238972f6
+      size: 5858539
+    - path: src/train.py
+      hash: md5
+      md5: 847a83d2f1213039a4a10497936a3f23
+      size: 2119
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: e845759fb02b95d32b849c0c92885d3c
+      size: 36
+    - path: models/model.joblib
+      hash: md5
+      md5: c9862c56823fbebceabc7c7e0141cddf
+      size: 1201
